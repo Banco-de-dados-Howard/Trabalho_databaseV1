@@ -1,0 +1,8 @@
+/home/labdatabase/Desktop/Trabalho_databaseV1/Ifode/bin/Release/net8.0/publish/Ifode
+/home/labdatabase/Desktop/Trabalho_databaseV1/Ifode/bin/Release/net8.0/publish/Ifode.dll
+/home/labdatabase/Desktop/Trabalho_databaseV1/Ifode/bin/Release/net8.0/publish/Ifode.deps.json
+/home/labdatabase/Desktop/Trabalho_databaseV1/Ifode/bin/Release/net8.0/publish/Ifode.runtimeconfig.json
+/home/labdatabase/Desktop/Trabalho_databaseV1/Ifode/bin/Release/net8.0/publish/Ifode.pdb
+/home/labdatabase/Desktop/Trabalho_databaseV1/Ifode/bin/Release/net8.0/publish/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/home/labdatabase/Desktop/Trabalho_databaseV1/Ifode/bin/Release/net8.0/publish/Microsoft.Extensions.Logging.Abstractions.dll
+/home/labdatabase/Desktop/Trabalho_databaseV1/Ifode/bin/Release/net8.0/publish/Npgsql.dll
