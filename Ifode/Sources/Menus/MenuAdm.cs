@@ -1,7 +1,5 @@
 using SistemaReserva.CRUD;
 using SistemaReserva.Models;
-using System;
-using System.Collections.Generic;
 
 namespace SistemaReserva
 {

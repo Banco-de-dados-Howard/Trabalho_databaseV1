@@ -6,6 +6,8 @@ namespace SistemaReserva
     {
         static void Main(string[] args)
         {
+            testeBanco();
+
             int opt = -1;
 
             while (opt != 0)
@@ -125,6 +127,12 @@ namespace SistemaReserva
             }
 
             return sb.ToString();
+        }
+
+        static void testeBanco()
+        {
+            ConfigBasica config = new ConfigBasica();
+            config.ExecutarConfiguracaoInicial();
         }
     }
 }
