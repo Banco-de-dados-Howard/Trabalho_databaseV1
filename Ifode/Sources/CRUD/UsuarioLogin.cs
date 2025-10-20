@@ -1,58 +1,55 @@
 using Npgsql;
 
-namespace SistemaReserva.CRUD
+namespace SistemaReserva
 {
     public class UsuarioLogin
     {
-        
+        private static readonly Conection conexao = new Conection();
 
         public static bool VerificarLogin(string email, string senha)
         {
-            Conection db = new Conection();
-            using var conn = db.getConn();
-            string sql = "SELECT nome FROM USUARIO WHERE email = @e AND senha = @s";
-            using var cmd = new NpgsqlCommand(sql, conn);
-
-            cmd.Parameters.AddWithValue("@e", email);
-            cmd.Parameters.AddWithValue("@s", senha);
-
-            using var reader = cmd.ExecuteReader();
-            if (reader.Read())
-            {
-                Console.WriteLine($"\nBem-vindo, {reader["nome"]}!");
-                return true;
-            }
-
-            return false;
+            return ObterIdUsuario(email, senha) != 0;
         }
 
-        public static void CadastrarUsuario(string nome, string email, string senha)
+        public static int ObterIdUsuario(string email, string senha)
         {
-            Conection db = new Conection();
-            using var conn = db.getConn();
-            string sql = "INSERT INTO USUARIO (nome, email, senha) VALUES (@n, @e, @s)";
-            using var cmd = new NpgsqlCommand(sql, conn);
-
-            cmd.Parameters.AddWithValue("@n", nome);
-            cmd.Parameters.AddWithValue("@e", email);
-            cmd.Parameters.AddWithValue("@s", senha);
-
             try
             {
-                int rows = cmd.ExecuteNonQuery();
-                if (rows > 0){
-                    Console.WriteLine("\nUsuário cadastrado com sucesso!");
-                    MenuUser.MostrarMenu();
-                }
-                else
-                    Console.WriteLine("\nErro ao cadastrar usuário!");
+                using var conn = conexao.getConn();
+                string sql = "SELECT idUsuario FROM USUARIO WHERE email=@email AND senha=@senha";
+                using var cmd = new NpgsqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("email", email);
+                cmd.Parameters.AddWithValue("senha", senha);
+
+                var result = cmd.ExecuteScalar();
+                return result != null ? Convert.ToInt32(result) : 0;
             }
-            catch (PostgresException ex)
+            catch (Exception e)
             {
-                if (ex.SqlState == "23505")
-                    Console.WriteLine("\nEste email já está cadastrado!");
-                else
-                    Console.WriteLine("\nErro no banco: " + ex.Message);
+                Console.WriteLine("Erro ao verificar login de usuário: " + e.Message);
+                return 0;
+            }
+        }
+
+        public static int CadastrarUsuario(string nome, string email, string senha)
+        {
+            try
+            {
+                using var conn = conexao.getConn();
+                string sql = @"INSERT INTO USUARIO (nome, email, senha) 
+                               VALUES (@nome, @email, @senha) RETURNING idUsuario";
+                using var cmd = new NpgsqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("nome", nome);
+                cmd.Parameters.AddWithValue("email", email);
+                cmd.Parameters.AddWithValue("senha", senha);
+
+                var id = cmd.ExecuteScalar();
+                return Convert.ToInt32(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro ao cadastrar usuário: " + e.Message);
+                return 0;
             }
         }
     }

@@ -1,30 +1,34 @@
 using Npgsql;
 
-namespace SistemaReserva.CRUD
+namespace SistemaReserva
 {
     public class AdmLogin
     {
-        
+        private static readonly Conection conexao = new Conection();
 
         public static bool VerificarLogin(string email, string senha)
         {
-            Conection db = new Conection();
-            using var conn = db.getConn();
-            string sql = "SELECT nome FROM ADM WHERE email = @e AND senha = @s";
-            using var cmd = new NpgsqlCommand(sql, conn);
+            return ObterIdAdm(email, senha) != 0;
+        }
 
-            cmd.Parameters.AddWithValue("@e", email);
-            cmd.Parameters.AddWithValue("@s", senha);
-
-            using var reader = cmd.ExecuteReader();
-
-            if (reader.Read())
+        public static int ObterIdAdm(string email, string senha)
+        {
+            try
             {
-                Console.WriteLine($"\nBem-vindo administrador, {reader["nome"]}!");
-                return true;
-            }
+                using var conn = conexao.getConn();
+                string sql = "SELECT idAdm FROM ADM WHERE email=@email AND senha=@senha";
+                using var cmd = new NpgsqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("email", email);
+                cmd.Parameters.AddWithValue("senha", senha);
 
-            return false;
+                var result = cmd.ExecuteScalar();
+                return result != null ? Convert.ToInt32(result) : 0;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro ao verificar login de administrador: " + e.Message);
+                return 0;
+            }
         }
     }
 }
