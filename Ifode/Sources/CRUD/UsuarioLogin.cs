@@ -1,6 +1,4 @@
-using System;
 using Npgsql;
-using SistemaReserva;
 
 namespace SistemaReserva.CRUD
 {
