@@ -142,7 +142,7 @@ namespace SistemaReserva
 
         private void InserirDados(NpgsqlConnection conn)
         {
-            string sqlAdm = "INSERT INTO ADM(nome,email,senha) VALUES('Matheus','lab@Database.com','lab@Database2025')";
+            string sqlAdm = "INSERT INTO ADM(nome,email,senha) VALUES('Administrador','lab@Database.com','lab@Database2025')";
             using (NpgsqlCommand cmd = new NpgsqlCommand(sqlAdm, conn))
             {
                 cmd.ExecuteNonQuery();
@@ -185,7 +185,7 @@ namespace SistemaReserva
                 ('Carolina', 'Acompanhante discreta e elegante para acompanhamento em eventos e na suíte.', 400.00, TRUE),
                 ('Débora', 'Acompanhante exclusiva com reserva garantida e serviço premium.', 550.00, TRUE),
                 ('Estela', 'Acompanhante de altíssimo padrão com atendimento personalizado e confidencial.', 650.00, TRUE),
-                ('Fabiana', 'Acompanhante com características especiais conforme solicitação.', 380.00, TRUE),
+                ('Fabiana', 'Acompanhante com características especiais conforme solicitação.', 380.00, TRUE)
             ";
             using (NpgsqlCommand cmd = new NpgsqlCommand(sqlJob, conn))
             {
