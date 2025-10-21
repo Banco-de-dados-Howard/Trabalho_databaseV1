@@ -221,7 +221,7 @@ namespace SistemaReserva
                         Console.WriteLine("Job alterado com sucesso!");
                         Console.ReadKey();
                         break;
-                    case 9: // Apagar Suíte
+                    case 9: 
                         Console.Clear();
                         Console.WriteLine("\n=== APAGAR SUÍTE ===\n");
                         var todasSuitesApagar = suiteCRUD.GetAllSuites();
@@ -243,7 +243,7 @@ namespace SistemaReserva
                         Console.ReadKey();
                         break;
 
-                    case 10: // Apagar Job
+                    case 10: 
                         Console.Clear();
                         Console.WriteLine("\n=== APAGAR JOB ===\n");
                         var todosJobsApagar = jobCRUD.GetAllJobs();
