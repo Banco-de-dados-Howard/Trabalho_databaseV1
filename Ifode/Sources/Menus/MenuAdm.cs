@@ -35,24 +35,31 @@ namespace SistemaReserva
                 switch (opt)
                 {
                     case 1:
-                        Console.Clear();
-                        var novaSuite = new Suite();
-                        Console.WriteLine("\n=== CADASTRAR SUÍTE ===\n");
-                        Console.Write("Nome da suíte: ");
-                        novaSuite.Nome = Console.ReadLine();
-                        Console.Write("Descrição: ");
-                        novaSuite.Descricao = Console.ReadLine();
-                        Console.Write("Preço: ");
-                        novaSuite.Preco = decimal.Parse(Console.ReadLine());
-                        Console.Write("Capacidade: ");
-                        novaSuite.Capacidade = int.Parse(Console.ReadLine());
-                        novaSuite.Disponibilidade = true;
-                        novaSuite.IdAdm = idAdm;
+                        int opt1 = 0;
+                        while (opt1 == 0)
+                        {
+                            Console.Clear();
+                            var novaSuite = new Suite();
+                            Console.WriteLine("\n=== CADASTRAR SUÍTE ===\n");
+                            Console.Write("Nome da suíte: ");
+                            novaSuite.Nome = Console.ReadLine();
+                            Console.Write("Descrição: ");
+                            novaSuite.Descricao = Console.ReadLine();
+                            Console.Write("Preço: ");
+                            novaSuite.Preco = decimal.Parse(Console.ReadLine());
+                            Console.Write("Capacidade: ");
+                            novaSuite.Capacidade = int.Parse(Console.ReadLine());
+                            novaSuite.Disponibilidade = true;
+                            novaSuite.IdAdm = idAdm;
 
-                        suiteCRUD.AddSuite(novaSuite);
-                        Console.WriteLine("\nSuíte cadastrada com sucesso!");
-                        Console.WriteLine("Pressione qualquer tecla para continuar...");
-                        Console.ReadKey();
+                            suiteCRUD.AddSuite(novaSuite);
+                            Console.WriteLine("\nSuíte cadastrada com sucesso!");
+
+                            Console.WriteLine("Deseja cadastrar mais uma suite ? \n[1] sim [0] não");
+
+                            opt1 = Int32.Parse(Console.ReadLine());
+                        }
+
                         break;
 
                     case 2:
@@ -95,21 +102,27 @@ namespace SistemaReserva
                         break;
 
                     case 3:
-                        Console.Clear();
-                        var novoJob = new Job();
-                        Console.WriteLine("\n=== CADASTRAR JOB ===\n");
-                        Console.Write("Nome do job: ");
-                        novoJob.Nome = Console.ReadLine();
-                        Console.Write("Descrição: ");
-                        novoJob.Descricao = Console.ReadLine();
-                        Console.Write("Tarifa: ");
-                        novoJob.Tarifa = decimal.Parse(Console.ReadLine());
-                        novoJob.Disponibilidade = true;
 
-                        jobCRUD.AddJob(novoJob);
-                        Console.WriteLine("\nJob cadastrado com sucesso!");
-                        Console.WriteLine("Pressione qualquer tecla para continuar...");
-                        Console.ReadKey();
+                        int opt3 = 0;
+                        while (opt3 == 0)
+                        {
+                            Console.Clear();
+                            var novoJob = new Job();
+                            Console.WriteLine("\n=== CADASTRAR JOB ===\n");
+                            Console.Write("Nome do job: ");
+                            novoJob.Nome = Console.ReadLine();
+                            Console.Write("Descrição: ");
+                            novoJob.Descricao = Console.ReadLine();
+                            Console.Write("Tarifa: ");
+                            novoJob.Tarifa = decimal.Parse(Console.ReadLine());
+                            novoJob.Disponibilidade = true;
+
+                            jobCRUD.AddJob(novoJob);
+
+                            Console.WriteLine("\nJob cadastrado com sucesso!");
+                            Console.WriteLine("Deseja cadastrar mais um companhante ? \n[1] sim [0] não");
+                            opt3 = Int32.Parse(Console.ReadLine());
+                        }
                         break;
 
                     case 4:

@@ -25,6 +25,8 @@ namespace SistemaReserva
             
             Console.WriteLine("Feito por: \n - Danton Barbosa\n - Eduardo Guedes\n - Gessiele Lima\n - João Gabriel Bastos\n - Lucas Paton\n - Matheus ALves");
             Console.WriteLine();
+            Console.WriteLine("Disciplina - Banco de dados");
+            Console.WriteLine("Professor - Howard Roatti");
 
             int opt = -1;
 
