@@ -1,15 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "H3Q7FuCLDNCmCGh+X2hpiNDmo4sC+UTZp+fWUtGhj5pmPMfckUjiv9GTeX2dRKYFd6p9rmXpHGbeCKMOt5XOAg==",
+  "dgSpecHash": "f7Vc5kPs/ERzuTYUBWV7JuoXROzB6sANVc0Q5mNzdhHuJdFBNRZRACoIxyfj9uf3nsY/wmmiZ+KqKnd4UagimA==",
   "success": true,
   "projectFilePath": "/home/labdatabase/Desktop/Trabalho_databaseV1/Ifode/Ifode.csproj",
   "expectedPackageFiles": [
     "/home/labdatabase/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.2/microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
     "/home/labdatabase/.nuget/packages/microsoft.extensions.logging.abstractions/8.0.2/microsoft.extensions.logging.abstractions.8.0.2.nupkg.sha512",
-    "/home/labdatabase/.nuget/packages/npgsql/9.0.4/npgsql.9.0.4.nupkg.sha512",
-    "/home/labdatabase/.nuget/packages/microsoft.netcore.app.runtime.linux-x64/8.0.21/microsoft.netcore.app.runtime.linux-x64.8.0.21.nupkg.sha512",
-    "/home/labdatabase/.nuget/packages/microsoft.aspnetcore.app.runtime.linux-x64/8.0.21/microsoft.aspnetcore.app.runtime.linux-x64.8.0.21.nupkg.sha512",
-    "/home/labdatabase/.nuget/packages/microsoft.netcore.app.host.linux-x64/8.0.21/microsoft.netcore.app.host.linux-x64.8.0.21.nupkg.sha512"
+    "/home/labdatabase/.nuget/packages/npgsql/9.0.4/npgsql.9.0.4.nupkg.sha512"
   ],
   "logs": []
 }

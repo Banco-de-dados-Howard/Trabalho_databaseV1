@@ -1,5 +1,6 @@
 using SistemaReserva.CRUD;
 using SistemaReserva.Models;
+using SistemaReserva;
 
 namespace SistemaReserva
 {
@@ -9,30 +10,34 @@ namespace SistemaReserva
         {
             var suiteCRUD = new SuiteCRUD();
             var jobCRUD = new JobCRUD();
-            var reservaCRUD = new ReservaCRUD();
 
             int opt;
             do
             {
+                Console.Clear();
                 Console.WriteLine("\n=== MENU ADMINISTRADOR ===");
                 Console.WriteLine("[1] - Cadastrar Suíte");
                 Console.WriteLine("[2] - Listar Suítes");
                 Console.WriteLine("[3] - Cadastrar Job");
                 Console.WriteLine("[4] - Listar Jobs");
-                Console.WriteLine("[5] - Gerar relatório das reservas");
-                Console.WriteLine("0 - Sair");
+                Console.WriteLine("[5] - Relatório de Reservas");
+                Console.WriteLine("[6] - Relatório Completo ");
+                Console.WriteLine("[0] - Sair");
                 Console.Write("\nEscolha uma opção: ");
 
                 if (!int.TryParse(Console.ReadLine(), out opt))
                 {
                     Console.WriteLine("Digite um número válido!");
+                    Console.ReadKey();
                     continue;
                 }
 
                 switch (opt)
                 {
-                    case 1: // Cadastrar Suíte
+                    case 1:
+                        Console.Clear();
                         var novaSuite = new Suite();
+                        Console.WriteLine("\n=== CADASTRAR SUÍTE ===\n");
                         Console.Write("Nome da suíte: ");
                         novaSuite.Nome = Console.ReadLine();
                         Console.Write("Descrição: ");
@@ -45,18 +50,54 @@ namespace SistemaReserva
                         novaSuite.IdAdm = idAdm;
 
                         suiteCRUD.AddSuite(novaSuite);
-                        Console.WriteLine("Suíte cadastrada com sucesso!");
+                        Console.WriteLine("\nSuíte cadastrada com sucesso!");
+                        Console.WriteLine("Pressione qualquer tecla para continuar...");
+                        Console.ReadKey();
                         break;
 
-                    case 2: // Listar Suítes
-                        Console.WriteLine("\n=== SUITES CADASTRADAS ===");
+                    case 2:
                         var suites = suiteCRUD.GetAllSuites();
-                        foreach (var s in suites)
-                            Console.WriteLine($"ID: {s.IdSuite} - {s.Nome} - R${s.Preco} - Capacidade: {s.Capacidade} - Disponível: {s.Disponibilidade}");
+                        int paginaSuite = 0;
+                        int itensPorPaginaSuite = 5;
+
+                        while (true)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("\n=== SUITES CADASTRADAS ===\n");
+
+                            int inicioSuite = paginaSuite * itensPorPaginaSuite;
+                            int fimSuite = inicioSuite + itensPorPaginaSuite;
+
+                            for (int i = inicioSuite; i < fimSuite && i < suites.Count; i++)
+                            {
+                                var s = suites[i];
+                                Console.WriteLine($"{s.Nome}:");
+                                Console.WriteLine($"  * ID: {s.IdSuite}");
+                                Console.WriteLine($"  * Descrição: {s.Descricao}");
+                                Console.WriteLine($"  * Preço: R$ {s.Preco:F2}");
+                                Console.WriteLine($"  * Capacidade: {s.Capacidade} pessoa(s)");
+                                Console.WriteLine($"  * Disponível: {(s.Disponibilidade ? "Sim" : "Não")}");
+                                Console.WriteLine();
+                            }
+
+                            Console.WriteLine("[1] Anterior | [2] Próxima | [0] Voltar");
+                            Console.Write("Opção: ");
+
+                            if (!int.TryParse(Console.ReadLine(), out int opSuite))
+                            {
+                                continue;
+                            }
+
+                            if (opSuite == 1 && paginaSuite > 0) paginaSuite--;
+                            else if (opSuite == 2 && fimSuite < suites.Count) paginaSuite++;
+                            else if (opSuite == 0) break;
+                        }
                         break;
 
-                    case 3: // Cadastrar Job
+                    case 3:
+                        Console.Clear();
                         var novoJob = new Job();
+                        Console.WriteLine("\n=== CADASTRAR JOB ===\n");
                         Console.Write("Nome do job: ");
                         novoJob.Nome = Console.ReadLine();
                         Console.Write("Descrição: ");
@@ -66,24 +107,21 @@ namespace SistemaReserva
                         novoJob.Disponibilidade = true;
 
                         jobCRUD.AddJob(novoJob);
-                        Console.WriteLine("Job cadastrado com sucesso!");
+                        Console.WriteLine("\nJob cadastrado com sucesso!");
+                        Console.WriteLine("Pressione qualquer tecla para continuar...");
+                        Console.ReadKey();
                         break;
 
-                    case 4: // Listar Jobs
-                        Console.WriteLine("\n=== JOBS CADASTRADOS ===");
-                        var jobs = jobCRUD.GetAllJobs();
-                        foreach (var j in jobs)
-                            Console.WriteLine($"ID: {j.IdJob} - {j.Nome} - R${j.Tarifa} - Disponível: {j.Disponibilidade}");
+                    case 4:
+                        Relatorios.RelatorioJobs();
                         break;
 
-                    case 5: // Relatório de reservas
-                        Console.WriteLine("\n=== RELATÓRIO DE RESERVAS ===");
-                        var reservas = reservaCRUD.GetAllReservas();
-                        foreach (var r in reservas)
-                        {
-                            var s = suiteCRUD.GetAllSuites().Find(su => su.IdSuite == r.IdSuite);
-                            Console.WriteLine($"ID: {r.IdReserva} - Usuário: {r.IdUsuario} - Suíte: {s.Nome} - Início: {r.DataInicio} - Fim: {r.DataFim} - Total: R${r.Total} - Status: {r.Status}");
-                        }
+                    case 5:
+                        Relatorios.RelatorioReservas();
+                        break;
+
+                    case 6:
+                        Relatorios.RelatorioCompleto();
                         break;
 
                     case 0:
@@ -92,9 +130,9 @@ namespace SistemaReserva
 
                     default:
                         Console.WriteLine("Opção inválida!");
+                        Console.ReadKey();
                         break;
                 }
-
             } while (opt != 0);
         }
     }

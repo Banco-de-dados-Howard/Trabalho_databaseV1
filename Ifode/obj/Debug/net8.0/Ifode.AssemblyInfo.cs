@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Ifode")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e8c79a3c9d6669e20028421cfed730061a5aa766")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7f1f9b9b4bd0124c7838aea28e392a0a9409a906")]
 [assembly: System.Reflection.AssemblyProductAttribute("Ifode")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Ifode")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

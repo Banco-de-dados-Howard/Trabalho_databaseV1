@@ -8,11 +8,30 @@ namespace SistemaReserva
         {
             testeBanco();
 
+            Console.Clear();
+            Console.WriteLine("==== DADOS DO SISTEMA DE RESERVA DE MOTEL ====");
+            contagemTabelas cont = new contagemTabelas();
+            int[] valores = cont.contar();
+
+            Console.WriteLine();
+            Console.WriteLine($"Total de registros diferentes: ");
+            Console.WriteLine($"{" ADM",-15} : {valores[0],15}");
+            Console.WriteLine($"{" Usuários",-15} : {valores[1],15}");
+            Console.WriteLine($"{" Suites",-15} : {valores[2],15}");
+            Console.WriteLine($"{" JOBs",-15} : {valores[3],15}");
+            Console.WriteLine($"{" Reservas",-15} : {valores[4],15}");
+            Console.WriteLine($"{" Reservas_job",-15} : {valores[5],15}");
+            Console.WriteLine();
+            
+            Console.WriteLine("Feito por: \n - Danton Barbosa\n - Eduardo Guedes\n - Gessiele Lima\n - João Gabriel Bastos\n - Lucas Paton\n - Matheus ALves");
+            Console.WriteLine();
+
             int opt = -1;
 
             while (opt != 0)
             {
-                Console.WriteLine("==== SISTEMA DE RESERVA DE MOTEL ====\n");
+                
+                Console.WriteLine("==== MOTEL IFODE ====\n");
                 Console.WriteLine("Qual opção deseja :");
                 Console.WriteLine("[1] - Fazer login");
                 Console.WriteLine("[2] - Fazer seu cadastro");
@@ -60,6 +79,7 @@ namespace SistemaReserva
                         Console.WriteLine("Opção desconhecida...\n");
                         break;
                 }
+                Console.Clear();
             }
         }
 
