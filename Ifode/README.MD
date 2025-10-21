@@ -2,6 +2,8 @@
 
 Sistema de gerenciamento de reservas desenvolvido em C# com PostgreSQL para controle completo de suítes, serviços adicionais (jobs) e reservas de um motel.
 
+Lembrando que o sistema, incluindo seu nome e funcionalidades, é uma brincadeira/paródia. O intuito é desenvolver as funcionalidades de um sistema de reservas de quartos de motel. Em nenhum momento compactuamos com a prostituição e sua disseminação
+
 ## Índice
 
 - [Sobre o Projeto](#sobre-o-projeto)
