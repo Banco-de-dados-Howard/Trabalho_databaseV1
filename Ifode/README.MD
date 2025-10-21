@@ -13,7 +13,6 @@ Sistema de gerenciamento de reservas desenvolvido em C# com PostgreSQL para cont
 - [Como Usar](#como-usar)
 - [Estrutura do Projeto](#estrutura-do-projeto)
 - [Autores](#autores)
-- [Problemas Conhecidos](#problemas-conhecidos)
 
 ## Sobre o Projeto
 
