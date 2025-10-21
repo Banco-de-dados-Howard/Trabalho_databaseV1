@@ -66,8 +66,8 @@ Antes de começar, você precisa ter instalado:
 
 ### 1. Clone o repositório
 ```bash
-git clone https://github.com/seu-usuario/sistema-reserva-motel.git
-cd sistema-reserva-motel
+git clone https://github.com/Banco-de-dados-Howard/Trabalho_databaseV1.git
+cd trabalho_databasev1
 ```
 
 ### 2. Restaure as dependências
