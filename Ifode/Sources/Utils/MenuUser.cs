@@ -296,7 +296,6 @@ namespace SistemaReserva
                         Console.ReadKey();
                         break;
                 }
-
             } while (opt != 0);
         }
     }

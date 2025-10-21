@@ -98,7 +98,7 @@ namespace SistemaReserva
                 catch (Exception ex)
                 {
                     // Se for um erro crítico de DROP/CREATE, propaga o erro
-                    if (comandoLimpo.ToUpper().Contains("CREATE TABLE") || 
+                    if (comandoLimpo.ToUpper().Contains("CREATE TABLE") ||
                         comandoLimpo.ToUpper().Contains("DROP TABLE"))
                     {
                         throw new Exception($"Erro ao executar comando SQL: {ex.Message}\nComando: {comandoLimpo.Substring(0, Math.Min(200, comandoLimpo.Length))}...", ex);

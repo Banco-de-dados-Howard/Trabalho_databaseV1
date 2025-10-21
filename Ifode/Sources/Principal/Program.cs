@@ -22,7 +22,7 @@ namespace SistemaReserva
             Console.WriteLine($"{" Reservas",-15} : {valores[4],15}");
             Console.WriteLine($"{" Reservas_job",-15} : {valores[5],15}");
             Console.WriteLine();
-            
+
             Console.WriteLine("Feito por: \n - Danton Barbosa\n - Eduardo Guedes\n - Gessiele Lima\n - João Gabriel Bastos\n - Lucas Paton\n - Matheus ALves");
             Console.WriteLine();
             Console.WriteLine("Disciplina - Banco de dados");
@@ -32,15 +32,15 @@ namespace SistemaReserva
 
             while (opt != 0)
             {
-                
+
                 Console.WriteLine("==== MOTEL IFODE ====\n");
                 Console.WriteLine("Qual opção deseja :");
                 Console.WriteLine("[1] - Fazer login");
                 Console.WriteLine("[2] - Fazer seu cadastro");
                 Console.WriteLine("[0] - Sair do sistema");
                 Console.Write("Opção: ");
-                
-                if(!int.TryParse(Console.ReadLine(), out opt))
+
+                if (!int.TryParse(Console.ReadLine(), out opt))
                 {
                     Console.WriteLine("Opção inválida!\n");
                     continue;
@@ -87,8 +87,8 @@ namespace SistemaReserva
 
         public static void verificarLogin(string email, string senha)
         {
-            int idAdm = AdmLogin.ObterIdAdm(email, senha); 
-            int idUsuario = UsuarioLogin.ObterIdUsuario(email, senha); 
+            int idAdm = AdmLogin.ObterIdAdm(email, senha);
+            int idUsuario = UsuarioLogin.ObterIdUsuario(email, senha);
 
             if (idAdm != 0)
             {
