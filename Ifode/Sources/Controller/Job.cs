@@ -40,6 +40,30 @@ namespace SistemaReserva.CRUD
             return lista;
         }
 
+        public Job GetJobById(int idJob)
+        {
+            using var conn = conexao.getConn();
+            string sql = "SELECT * FROM JOB WHERE idJob = @idJob";
+            using var cmd = new NpgsqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("idJob", idJob);
+
+            using var reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                return new Job
+                {
+                    IdJob = reader.GetInt32(0),
+                    Nome = reader.GetString(1),
+                    Descricao = reader.IsDBNull(2) ? null : reader.GetString(2),
+                    Tarifa = reader.GetDecimal(3),
+                    Disponibilidade = reader.GetBoolean(4)
+                };
+            }
+
+            return null; // Retorna null se não encontrar
+        }
+
+
         public void UpdateJob(Job job)
         {
             using var conn = conexao.getConn();

@@ -22,6 +22,8 @@ namespace SistemaReserva
                 Console.WriteLine("[4] - Listar Jobs");
                 Console.WriteLine("[5] - Relatório de Reservas");
                 Console.WriteLine("[6] - Relatório Completo ");
+                Console.WriteLine("[7] - Alterar Suíte");
+                Console.WriteLine("[8] - Alterar Job");
                 Console.WriteLine("[0] - Sair");
                 Console.Write("\nEscolha uma opção: ");
 
@@ -135,6 +137,87 @@ namespace SistemaReserva
 
                     case 6:
                         Relatorios.RelatorioCompleto();
+                        break;
+                    case 7: // Alterar Suíte
+                        Console.Clear();
+                        Console.WriteLine("\n=== ALTERAR SUÍTE ===\n");
+                        var todasSuites = suiteCRUD.GetAllSuites();
+                        foreach (var s in todasSuites)
+                        {
+                            Console.WriteLine($"{s.IdSuite} - {s.Nome}");
+                        }
+                        Console.Write("\nDigite o ID da suíte que deseja alterar: ");
+                        int idSuiteAlterar = int.Parse(Console.ReadLine());
+                        var suiteAlterar = suiteCRUD.GetSuiteById(idSuiteAlterar);
+                        if (suiteAlterar == null)
+                        {
+                            Console.WriteLine("Suíte não encontrada!");
+                            Console.ReadKey();
+                            break;
+                        }
+
+                        Console.Write($"Nome ({suiteAlterar.Nome}): ");
+                        string novoNome = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(novoNome)) suiteAlterar.Nome = novoNome;
+
+                        Console.Write($"Descrição ({suiteAlterar.Descricao}): ");
+                        string novaDescricao = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(novaDescricao)) suiteAlterar.Descricao = novaDescricao;
+
+                        Console.Write($"Preço ({suiteAlterar.Preco}): ");
+                        string novoPreco = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(novoPreco)) suiteAlterar.Preco = decimal.Parse(novoPreco);
+
+                        Console.Write($"Capacidade ({suiteAlterar.Capacidade}): ");
+                        string novaCapacidade = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(novaCapacidade)) suiteAlterar.Capacidade = int.Parse(novaCapacidade);
+
+                        Console.Write($"Disponibilidade (Sim/Não) ({(suiteAlterar.Disponibilidade ? "Sim" : "Não")}): ");
+                        string novaDisp = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(novaDisp)) suiteAlterar.Disponibilidade = novaDisp.Trim().ToLower() == "sim";
+
+                        suiteCRUD.UpdateSuite(suiteAlterar);
+                        Console.WriteLine("Suíte alterada com sucesso!");
+                        Console.ReadKey();
+                        break;
+
+                    case 8: // Alterar Job
+                        Console.Clear();
+                        Console.WriteLine("\n=== ALTERAR JOB ===\n");
+                        var todosJobs = jobCRUD.GetAllJobs();
+                        foreach (var j in todosJobs)
+                        {
+                            Console.WriteLine($"{j.IdJob} - {j.Nome}");
+                        }
+                        Console.Write("\nDigite o ID do job que deseja alterar: ");
+                        int idJobAlterar = int.Parse(Console.ReadLine());
+                        var jobAlterar = jobCRUD.GetJobById(idJobAlterar);
+                        if (jobAlterar == null)
+                        {
+                            Console.WriteLine("Job não encontrado!");
+                            Console.ReadKey();
+                            break;
+                        }
+
+                        Console.Write($"Nome ({jobAlterar.Nome}): ");
+                        string novoNomeJob = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(novoNomeJob)) jobAlterar.Nome = novoNomeJob;
+
+                        Console.Write($"Descrição ({jobAlterar.Descricao}): ");
+                        string novaDescricaoJob = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(novaDescricaoJob)) jobAlterar.Descricao = novaDescricaoJob;
+
+                        Console.Write($"Tarifa ({jobAlterar.Tarifa}): ");
+                        string novaTarifa = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(novaTarifa)) jobAlterar.Tarifa = decimal.Parse(novaTarifa);
+
+                        Console.Write($"Disponibilidade (Sim/Não) ({(jobAlterar.Disponibilidade ? "Sim" : "Não")}): ");
+                        string novaDispJob = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(novaDispJob)) jobAlterar.Disponibilidade = novaDispJob.Trim().ToLower() == "sim";
+
+                        jobCRUD.UpdateJob(jobAlterar);
+                        Console.WriteLine("Job alterado com sucesso!");
+                        Console.ReadKey();
                         break;
 
                     case 0:

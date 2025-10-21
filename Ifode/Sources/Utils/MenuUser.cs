@@ -21,9 +21,10 @@ namespace SistemaReserva
                 Console.WriteLine("[1] - Fazer Reserva");
                 Console.WriteLine("[2] - Consultar Reservas");
                 Console.WriteLine("[3] - Cancelar Reserva");
+                Console.WriteLine("[4] - Alterar Reserva");
                 Console.WriteLine("[0] - Sair");
                 Console.Write("\nEscolha uma opção: ");
-                
+
                 if (!int.TryParse(Console.ReadLine(), out opt))
                 {
                     Console.WriteLine("Digite um número válido!");
@@ -33,7 +34,7 @@ namespace SistemaReserva
 
                 switch (opt)
                 {
-                    case 1: 
+                    case 1:
                         Console.Clear();
                         Console.WriteLine("\n=== SUITES DISPONÍVEIS ===\n");
                         var suites = suiteCRUD.GetAllSuites().FindAll(s => s.Disponibilidade);
@@ -105,7 +106,7 @@ namespace SistemaReserva
                         reservaCRUD.AddReserva(reserva);
 
                         var todasReservas = reservaCRUD.GetAllReservas();
-                        int idReserva = todasReservas[^1].IdReserva; 
+                        int idReserva = todasReservas[^1].IdReserva;
 
                         foreach (var jid in jobsSelecionados)
                         {
@@ -117,7 +118,7 @@ namespace SistemaReserva
                         Console.ReadKey();
                         break;
 
-                    case 2: 
+                    case 2:
                         var minhasReservas = reservaCRUD.GetAllReservas().FindAll(r => r.IdUsuario == idUsuario);
                         int paginaReserva = 0;
                         int itensPorPagina = 5;
@@ -186,11 +187,11 @@ namespace SistemaReserva
                         }
                         break;
 
-                    case 3: 
+                    case 3:
                         Console.Clear();
                         Console.WriteLine("\n=== CANCELAR RESERVA ===\n");
                         var reservasAtivas = reservaCRUD.GetAllReservas().FindAll(r => r.IdUsuario == idUsuario && r.Status == "Ativa");
-                        
+
                         if (reservasAtivas.Count == 0)
                         {
                             Console.WriteLine("Você não possui reservas ativas para cancelar.");
@@ -207,7 +208,7 @@ namespace SistemaReserva
 
                         Console.Write("\nDigite o ID da reserva que deseja cancelar: ");
                         int idCancel = int.Parse(Console.ReadLine());
-                        
+
                         var reservaCancel = reservasAtivas.Find(r => r.IdReserva == idCancel);
                         if (reservaCancel == null)
                         {
@@ -218,7 +219,70 @@ namespace SistemaReserva
                             reservaCRUD.DeleteReserva(idCancel);
                             Console.WriteLine("Reserva cancelada com sucesso!");
                         }
-                        
+
+                        Console.WriteLine("Pressione qualquer tecla para continuar...");
+                        Console.ReadKey();
+                        break;
+                    case 4: // Alterar Reserva
+                        Console.Clear();
+                        Console.WriteLine("\n=== ALTERAR RESERVA ===\n");
+
+                        // Filtra reservas que ainda irão acontecer
+                        var reservasFuturas = reservaCRUD.GetAllReservas()
+                            .FindAll(r => r.IdUsuario == idUsuario && r.DataInicio > DateTime.Now && r.Status == "Ativa");
+
+                        if (reservasFuturas.Count == 0)
+                        {
+                            Console.WriteLine("Você não possui reservas futuras para alterar.");
+                            Console.WriteLine("Pressione qualquer tecla para continuar...");
+                            Console.ReadKey();
+                            break;
+                        }
+
+                        foreach (var r in reservasFuturas)
+                        {
+                            var s = suiteCRUD.GetAllSuites().Find(su => su.IdSuite == r.IdSuite);
+                            Console.WriteLine($"ID: {r.IdReserva} - {s?.Nome ?? "Não encontrada"} - {r.DataInicio:dd/MM/yyyy} a {r.DataFim:dd/MM/yyyy} - R$ {r.Total:F2}");
+                        }
+
+                        Console.Write("\nDigite o ID da reserva que deseja alterar: ");
+                        int idAlterar = int.Parse(Console.ReadLine());
+
+                        var reservaAlterar = reservasFuturas.Find(r => r.IdReserva == idAlterar);
+                        if (reservaAlterar == null)
+                        {
+                            Console.WriteLine("Reserva não encontrada ou não pode ser alterada!");
+                            Console.ReadKey();
+                            break;
+                        }
+
+                        Console.Write($"Nova data de início ({reservaAlterar.DataInicio:dd-MM-yyyy}): ");
+                        string novaDataInicioStr = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(novaDataInicioStr))
+                            reservaAlterar.DataInicio = DateTime.ParseExact(novaDataInicioStr, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+
+                        Console.Write($"Nova data de fim ({reservaAlterar.DataFim:dd-MM-yyyy}): ");
+                        string novaDataFimStr = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(novaDataFimStr))
+                            reservaAlterar.DataFim = DateTime.ParseExact(novaDataFimStr, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+
+                        // Recalcular total (suite + jobs)
+                        var suiteSelecionadaAlt = suiteCRUD.GetAllSuites().Find(s => s.IdSuite == reservaAlterar.IdSuite);
+                        decimal totalAlterado = suiteSelecionadaAlt.Preco;
+
+                        var reservasJobsAlterar = reservaJobCRUD.GetAllReservaJobs()
+                            .FindAll(rj => rj.IdReserva == reservaAlterar.IdReserva);
+                        foreach (var rj in reservasJobsAlterar)
+                        {
+                            var job = jobCRUD.GetAllJobs().Find(j => j.IdJob == rj.IdJob);
+                            if (job != null) totalAlterado += job.Tarifa;
+                        }
+
+                        reservaAlterar.Total = totalAlterado;
+
+                        reservaCRUD.UpdateReserva(reservaAlterar);
+
+                        Console.WriteLine($"\nReserva alterada com sucesso! Novo total: R$ {totalAlterado:F2}");
                         Console.WriteLine("Pressione qualquer tecla para continuar...");
                         Console.ReadKey();
                         break;
