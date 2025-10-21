@@ -17,13 +17,15 @@ namespace SistemaReserva
                 Console.Clear();
                 Console.WriteLine("\n=== MENU ADMINISTRADOR ===");
                 Console.WriteLine("[1] - Cadastrar Suíte");
-                Console.WriteLine("[2] - Listar Suítes");
-                Console.WriteLine("[3] - Cadastrar Job");
+                Console.WriteLine("[2] - Cadastrar Job");
+                Console.WriteLine("[3] - Listar Suítes");
                 Console.WriteLine("[4] - Listar Jobs");
                 Console.WriteLine("[5] - Relatório de Reservas");
                 Console.WriteLine("[6] - Relatório Completo ");
                 Console.WriteLine("[7] - Alterar Suíte");
                 Console.WriteLine("[8] - Alterar Job");
+                Console.WriteLine("[9] - Apagar Suíte");
+                Console.WriteLine("[10] - Apagar Job");
                 Console.WriteLine("[0] - Sair");
                 Console.Write("\nEscolha uma opção: ");
 
@@ -64,7 +66,7 @@ namespace SistemaReserva
 
                         break;
 
-                    case 2:
+                    case 3:
                         var suites = suiteCRUD.GetAllSuites();
                         int paginaSuite = 0;
                         int itensPorPaginaSuite = 5;
@@ -103,7 +105,7 @@ namespace SistemaReserva
                         }
                         break;
 
-                    case 3:
+                    case 2:
 
                         int opt3 = 0;
                         while (opt3 == 0)
@@ -217,6 +219,49 @@ namespace SistemaReserva
 
                         jobCRUD.UpdateJob(jobAlterar);
                         Console.WriteLine("Job alterado com sucesso!");
+                        Console.ReadKey();
+                        break;
+                    case 9: // Apagar Suíte
+                        Console.Clear();
+                        Console.WriteLine("\n=== APAGAR SUÍTE ===\n");
+                        var todasSuitesApagar = suiteCRUD.GetAllSuites();
+                        foreach (var s in todasSuitesApagar)
+                        {
+                            Console.WriteLine($"{s.IdSuite} - {s.Nome}");
+                        }
+                        Console.Write("\nDigite o ID da suíte que deseja apagar: ");
+                        int idSuiteApagar = int.Parse(Console.ReadLine());
+                        var suiteApagar = suiteCRUD.GetSuiteById(idSuiteApagar);
+                        if (suiteApagar == null)
+                        {
+                            Console.WriteLine("Suíte não encontrada!");
+                            Console.ReadKey();
+                            break;
+                        }
+                        suiteCRUD.DeleteSuite(idSuiteApagar);
+                        Console.WriteLine("Suíte apagada com sucesso!");
+                        Console.ReadKey();
+                        break;
+
+                    case 10: // Apagar Job
+                        Console.Clear();
+                        Console.WriteLine("\n=== APAGAR JOB ===\n");
+                        var todosJobsApagar = jobCRUD.GetAllJobs();
+                        foreach (var j in todosJobsApagar)
+                        {
+                            Console.WriteLine($"{j.IdJob} - {j.Nome}");
+                        }
+                        Console.Write("\nDigite o ID do job que deseja apagar: ");
+                        int idJobApagar = int.Parse(Console.ReadLine());
+                        var jobApagar = jobCRUD.GetJobById(idJobApagar);
+                        if (jobApagar == null)
+                        {
+                            Console.WriteLine("Job não encontrado!");
+                            Console.ReadKey();
+                            break;
+                        }
+                        jobCRUD.DeleteJob(idJobApagar);
+                        Console.WriteLine("Job apagado com sucesso!");
                         Console.ReadKey();
                         break;
 
