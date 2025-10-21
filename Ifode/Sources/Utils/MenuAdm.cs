@@ -16,17 +16,17 @@ namespace SistemaReserva
             {
                 Console.Clear();
                 Console.WriteLine("\n=== MENU ADMINISTRADOR ===");
-                Console.WriteLine("[1] - Cadastrar Suíte");
-                Console.WriteLine("[2] - Cadastrar Job");
-                Console.WriteLine("[3] - Listar Suítes");
-                Console.WriteLine("[4] - Listar Jobs");
-                Console.WriteLine("[5] - Relatório de Reservas");
-                Console.WriteLine("[6] - Relatório Completo ");
-                Console.WriteLine("[7] - Alterar Suíte");
-                Console.WriteLine("[8] - Alterar Job");
-                Console.WriteLine("[9] - Apagar Suíte");
-                Console.WriteLine("[10] - Apagar Job");
-                Console.WriteLine("[0] - Sair");
+                Console.WriteLine($"{"[1]",-5} - {"Cadastrar Suíte",5}");
+                Console.WriteLine($"{"[2]", -5} - {"Cadastrar Job",5}");
+                Console.WriteLine($"{"[3]",-5} - {"Listar Suítes",5}");
+                Console.WriteLine($"{"[4]", -5} - {"Listar Jobs", 5}");
+                Console.WriteLine($"{"[5]",-5} - {"Relatório de Reservas",5}");
+                Console.WriteLine($"{"[6]", -5} - {"Relatório Completo",5}");
+                Console.WriteLine($"{"[7]", -5} - {"Alterar Suíte", 5}");
+                Console.WriteLine($"{"[8]", -5} - {"Alterar Job", 5}");
+                Console.WriteLine($"{"[9]", -5} - {"Apagar Suíte" ,5}");
+                Console.WriteLine($"{"[10]", -5} - {"Apagar Job", 5}");
+                Console.WriteLine($"{"[0]", -5} -{ "Sair", 5}");
                 Console.Write("\nEscolha uma opção: ");
 
                 if (!int.TryParse(Console.ReadLine(), out opt))
@@ -39,8 +39,8 @@ namespace SistemaReserva
                 switch (opt)
                 {
                     case 1:
-                        int opt1 = 0;
-                        while (opt1 == 0)
+                        int opt1 = 1;
+                        while (opt1 != 0)
                         {
                             Console.Clear();
                             var novaSuite = new Suite();
@@ -107,8 +107,8 @@ namespace SistemaReserva
 
                     case 2:
 
-                        int opt3 = 0;
-                        while (opt3 == 0)
+                        int opt3 = 1;
+                        while (opt3 != 0)
                         {
                             Console.Clear();
                             var novoJob = new Job();
