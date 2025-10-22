@@ -11,6 +11,7 @@ Sistema de gerenciamento de reservas desenvolvido em C# com PostgreSQL para cont
 - [Instalação](#instalação)
 - [Configuração do Banco de Dados](#configuração-do-banco-de-dados)
 - [Como Usar](#como-usar)
+- [Executar com Docker](#executar-com-docker)
 - [Estrutura do Projeto](#estrutura-do-projeto)
 - [Autores](#autores)
 
@@ -53,21 +54,25 @@ Sistema console desenvolvido como projeto acadêmico da disciplina de Banco de D
 - **ORM/Driver**: Npgsql
 - **Padrão**: CRUD com classes separadas
 - **Interface**: Console Application
+- **Containerização**: Docker
 
 ## Pré-requisitos
 
-Antes de começar, você precisa ter instalado:
-
+### Execução Local
 - [.NET SDK 8.0](https://dotnet.microsoft.com/download) ou superior
 - [PostgreSQL 12](https://www.postgresql.org/download/) ou superior
 - Editor de código (recomendado: [Visual Studio](https://visualstudio.microsoft.com/) ou [VS Code](https://code.visualstudio.com/))
+
+### Execução com Docker
+- [Docker](https://www.docker.com/get-started) instalado
+- PostgreSQL rodando na máquina host (se necessário)
 
 ## Instalação
 
 ### 1. Clone o repositório
 ```bash
-git clone https://github.com/seu-usuario/sistema-reserva-motel.git
-cd sistema-reserva-motel
+git clone https://github.com/Banco-de-dados-Howard/Trabalho_databaseV1.git
+cd Trabalho_databaseV1/Ifode
 ```
 
 ### 2. Restaure as dependências
@@ -75,13 +80,13 @@ cd sistema-reserva-motel
 dotnet restore
 ```
 
+### 3. Configure a conexão com o banco
+Edite o arquivo `Sources/Connection/Conection.cs` se necessário, ajustando a string de conexão para seu ambiente local.
+
 ## Configuração do Banco de Dados
 
-### Opção 1: Configuração Automática
+### Configuração Automática
 O sistema cria automaticamente as tabelas na primeira execução através do arquivo `Banco.sql`.
-
-### Opção 2: Configuração Manual
-Execute o script SQL contido em `Banco.sql` no seu PostgreSQL:
 
 ### Estrutura das Tabelas
 O banco de dados contém as seguintes tabelas:
@@ -94,7 +99,7 @@ O banco de dados contém as seguintes tabelas:
 
 ## Como Usar
 
-### Executar o sistema
+### Executar o sistema localmente
 ```bash
 dotnet run
 ```
@@ -138,6 +143,49 @@ Data de início (DD-MM-YYYY): 25-10-2025
 Data de fim (DD-MM-YYYY): 27-10-2025
 ```
 
+## Executar com Docker
+
+O projeto pode ser executado em qualquer máquina usando Docker, sem necessidade de instalar .NET localmente.
+
+### 1. Construir a imagem Docker
+```bash
+docker build -t ifode-app .
+```
+
+### 2. Verificar se a imagem foi criada
+```bash
+docker images | grep ifode
+```
+
+### 3. Executar o container
+
+#### No Linux:
+```bash
+docker run -it --rm --network="host" ifode-app
+```
+
+#### No Windows/Mac:
+```bash
+docker run -it --rm --add-host=host.docker.internal:host-gateway ifode-app
+```
+
+#### Com variáveis de ambiente personalizadas:
+```bash
+docker run -it --rm \
+  -e POSTGRES_HOST=host.docker.internal \
+  -e POSTGRES_PORT=5432 \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=postgres \
+  --add-host=host.docker.internal:host-gateway \
+  ifode-app
+```
+
+### Observações sobre Docker
+- O container se conecta ao PostgreSQL rodando na máquina host
+- Certifique-se de que o PostgreSQL está rodando antes de executar o container
+- Use `--rm` para remover o container automaticamente após a execução
+- Use `-it` para modo interativo (necessário para aplicações console)
+
 ## Estrutura do Projeto
 
 ```
@@ -174,6 +222,11 @@ SistemaReserva/
 │       └── MenuUser.cs        # Interface do menu de usuário
 │
 ├── Banco.sql                  # Script SQL de criação das tabelas
+├── Dockerfile                 # Configuração Docker
+├── .dockerignore             # Arquivos ignorados pelo Docker
+├── Ifode.csproj              # Arquivo de projeto .NET
+├── Ifode.sln                 # Solução Visual Studio
+└── README.MD                 # Documentação do projeto
 ```
 
 ### Descrição dos Diretórios
@@ -205,3 +258,17 @@ Desenvolvido por:
 **Disciplina**: Banco de Dados  
 **Professor**: Howard Roatti  
 **Instituição**: FAESA
+
+## Licença
+
+Este projeto foi desenvolvido para fins educacionais.
+
+## Suporte
+
+Para dúvidas ou problemas:
+- Abra uma [Issue](https://github.com/Banco-de-dados-Howard/Trabalho_databaseV1/issues)
+- Entre em contato com os desenvolvedores
+
+---
+
+**Desenvolvido por estudantes da FAESA**
