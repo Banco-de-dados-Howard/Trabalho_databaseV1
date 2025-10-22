@@ -2,6 +2,8 @@
 
 Sistema de gerenciamento de reservas desenvolvido em C# com PostgreSQL para controle completo de suítes, serviços adicionais (jobs) e reservas de um motel.
 
+Vídeo de uso do programa [Link](https://youtu.be/cN-6VkqCDX4)
+
 ## Índice
 
 - [Sobre o Projeto](#sobre-o-projeto)
