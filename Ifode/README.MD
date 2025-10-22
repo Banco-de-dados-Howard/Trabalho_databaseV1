@@ -171,7 +171,7 @@ docker run -it --rm --network="host" ifode-app
 docker run -it --rm --add-host=host.docker.internal:host-gateway ifode-app
 ```
 
-#### Com variáveis de ambiente personalizadas:
+#### Caso os comandos acima não funcionem, tente com variáveis de ambiente personalizadas:
 ```bash
 docker run -it --rm \
   -e POSTGRES_HOST=host.docker.internal \
