@@ -1,4 +1,3 @@
-
 bin/
 obj/
 .git/
@@ -6,7 +5,5 @@ obj/
 .vs/
 .vscode/
 *.md
-README.md
 .dockerignore
 Dockerfile
-docker-compose.yml

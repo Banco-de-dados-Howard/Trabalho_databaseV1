@@ -1,26 +1,12 @@
-# Usar a imagem base do .NET SDK para build
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0
 WORKDIR /app
 
-# Copiar o arquivo de projeto e restaurar dependências
-COPY *.csproj ./
+COPY . .
 RUN dotnet restore
 
-# Copiar todo o código fonte
-COPY . ./
+# Substituir localhost por host.docker.internal no build
+RUN sed -i 's/localhost/host.docker.internal/g' Sources/Connection/Conection.cs
 
-# Compilar a aplicação
-RUN dotnet publish -c Release -o out
+RUN dotnet build -c Release
 
-# Usar a imagem runtime do .NET para execução
-FROM mcr.microsoft.com/dotnet/runtime:8.0
-WORKDIR /app
-
-# Copiar os arquivos compilados
-COPY --from=build /app/out .
-
-# Copiar o arquivo Banco.sql
-COPY Banco.sql ./
-
-# Definir o ponto de entrada
-ENTRYPOINT ["dotnet", "Ifode.dll"]
+CMD ["dotnet", "run", "--project", "Ifode.csproj"]
