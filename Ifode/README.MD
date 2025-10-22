@@ -259,16 +259,4 @@ Desenvolvido por:
 **Professor**: Howard Roatti  
 **Instituição**: FAESA
 
-## Licença
-
-Este projeto foi desenvolvido para fins educacionais.
-
-## Suporte
-
-Para dúvidas ou problemas:
-- Abra uma [Issue](https://github.com/Banco-de-dados-Howard/Trabalho_databaseV1/issues)
-- Entre em contato com os desenvolvedores
-
----
-
 **Desenvolvido por estudantes da FAESA**
